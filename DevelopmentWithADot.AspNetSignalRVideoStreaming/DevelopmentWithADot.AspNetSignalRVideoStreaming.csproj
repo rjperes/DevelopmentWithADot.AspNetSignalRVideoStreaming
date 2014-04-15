@@ -71,7 +71,6 @@
   <ItemGroup>
     <Compile Include="VideoStreamingHub.cs" />
     <Compile Include="VideoStreaming.cs" />
-    <Compile Include="VideoStreamedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VideoStreamingMode.cs" />
   </ItemGroup>
