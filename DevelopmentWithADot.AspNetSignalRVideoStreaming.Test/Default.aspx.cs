@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using DevelopmentWithADot.AspNetSignalRVideoStreaming;
 
 namespace DevelopmentWithADot.AspNetSignalRVideoStre.Test
 {
@@ -12,6 +13,15 @@ namespace DevelopmentWithADot.AspNetSignalRVideoStre.Test
 			Boolean.TryParse(this.Request.QueryString["Source"], out source);
 
 			this.video.Source = source;
+
+			if (source == false)
+			{
+				this.video.Style[HtmlTextWriterStyle.Display] = "none";
+			}
+			else
+			{
+				//this.video.StreamingMode = VideoStreamingMode.None;
+			}
 
 			base.OnInit(e);
 		}

@@ -9,6 +9,11 @@ namespace DevelopmentWithADot.AspNetSignalRVideoStreaming
 	public enum VideoStreamingMode
 	{
 		/// <summary>
+		/// No streaming.
+		/// </summary>
+		None,
+
+		/// <summary>
 		/// Raises a JavaScript event.
 		/// </summary>
 		Event,
@@ -18,6 +23,9 @@ namespace DevelopmentWithADot.AspNetSignalRVideoStreaming
 		/// </summary>
 		Target,
 
+		/// <summary>
+		/// Draws in a new window.
+		/// </summary>
 		Window
 	}
 }

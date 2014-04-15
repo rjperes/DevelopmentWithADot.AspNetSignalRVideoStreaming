@@ -15,10 +15,11 @@ namespace DevelopmentWithADot.AspNetSignalRVideoStreaming
 		public VideoStreaming() : base("video")
 		{
 			this.Interval = 100;
-			this.Url = "/videostreaming";
 			this.OnStreamed = String.Empty;
-			this.TargetClientID = String.Empty;
 			this.Source = false;
+			this.StreamingMode = VideoStreamingMode.Event;
+			this.TargetClientID = String.Empty;
+			this.Url = "/videostreaming";
 		}
 
 		[DefaultValue(false)]
