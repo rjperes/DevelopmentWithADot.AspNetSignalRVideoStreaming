@@ -8,8 +8,6 @@
 	<script type="text/javascript" src="/Scripts/jquery.signalR-2.0.3.js"></script>
 	<script type="text/javascript">
 
-		var connection = null;
-
 		function startStreaming()
 		{
 			document.getElementById('video').startStream();
@@ -38,7 +36,7 @@
 <body>
 	<form runat="server">
 	<div>
-		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
+		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" Interval="50" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
 		<canvas id="received" width="300" height="300" style="border: solid 1px black"></canvas>
 		<br/>
 		<input type="button" value="Start Streaming" onclick="startStreaming()"/>

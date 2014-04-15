@@ -1,0 +1,8 @@
+/DevelopmentWithADot.AspNetSignalRVideoStreaming.Test/*.user
+/DevelopmentWithADot.AspNetSignalRVideoStreaming.Test/bin
+/*.suo
+/packages/Microsoft.AspNet.SignalR.2.0.3
+/packages
+/DevelopmentWithADot.AspNetSignalRVideoStreaming/bin/Debug
+/DevelopmentWithADot.AspNetSignalRVideoStreaming.Test/obj/Debug
+/DevelopmentWithADot.AspNetSignalRVideoStreaming/obj/Debug
