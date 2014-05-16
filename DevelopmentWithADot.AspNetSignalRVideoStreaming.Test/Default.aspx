@@ -18,13 +18,13 @@
 			document.getElementById('video').stopStream();
 		}
 
-		function onStreamed(videoUrl)
+		function onStreamed(imageUrl, imageWidth, imageHeight)
 		{
 			//for StreamingMode="Event"
 			var canvas = document.getElementById('received');
 			var ctx = canvas.getContext('2d');
 			var img = new Image();
-			img.src = videoUrl;
+			img.src = imageUrl;
 			img.onload = function()
 			{
 				ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -36,7 +36,7 @@
 <body>
 	<form runat="server">
 	<div>
-		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" Interval="50" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
+		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" Interval="100" ScalingMode="TargetSize" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
 		<canvas id="received" width="300" height="300" style="border: solid 1px black"></canvas>
 		<br/>
 		<input type="button" value="Start Streaming" onclick="startStreaming()"/>

@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VideoScalingMode.cs" />
     <Compile Include="VideoStreamingHub.cs" />
     <Compile Include="VideoStreaming.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
 namespace DevelopmentWithADot.AspNetSignalRVideoStreaming
 {
-	class VideoStreamingHub : PersistentConnection
+	public class VideoStreamingHub : Hub
 	{
-		protected override Task OnReceived(IRequest request, String connectionId, String data)
+		public void Send(String imageUrl, Int32 imageWidth, Int32 imageHeight)
 		{
-			return (this.Connection.Broadcast(data));
+			this.Clients.All.Send(imageUrl, imageWidth, imageHeight);
 		}
 	}
 }
