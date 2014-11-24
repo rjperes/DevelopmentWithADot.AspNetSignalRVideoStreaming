@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace DevelopmentWithADot.AspNetSignalRVideoStre.Test
+namespace DevelopmentWithADot.AspNetSignalRVideoStreaming.Test
 {
 	public class Global : HttpApplication
 	{

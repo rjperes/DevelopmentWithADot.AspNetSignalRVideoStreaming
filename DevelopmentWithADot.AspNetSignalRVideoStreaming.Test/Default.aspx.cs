@@ -2,7 +2,7 @@
 using System.Web.UI;
 using DevelopmentWithADot.AspNetSignalRVideoStreaming;
 
-namespace DevelopmentWithADot.AspNetSignalRVideoStre.Test
+namespace DevelopmentWithADot.AspNetSignalRVideoStreaming.Test
 {
 	public partial class Default : Page
 	{

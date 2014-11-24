@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DevelopmentWithADot.AspNetSignalRVideoStre.Test {
+namespace DevelopmentWithADot.AspNetSignalRVideoStreaming.Test {
     
     
     public partial class Default {

@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="DevelopmentWithADot.AspNetSignalRVideoStre.Test.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="DevelopmentWithADot.AspNetSignalRVideoStreaming.Test.Global" Language="C#" %>

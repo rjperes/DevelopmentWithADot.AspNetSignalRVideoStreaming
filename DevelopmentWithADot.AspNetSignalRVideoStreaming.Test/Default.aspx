@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" CodeBehind="Default.aspx.cs" Inherits="DevelopmentWithADot.AspNetSignalRVideoStre.Test.Default" %>
+﻿<%@ Page Language="C#" CodeBehind="Default.aspx.cs" Inherits="DevelopmentWithADot.AspNetSignalRVideoStreaming.Test.Default" %>
 <%@ Register assembly="DevelopmentWithADot.AspNetSignalRVideoStreaming" namespace="DevelopmentWithADot.AspNetSignalRVideoStreaming" tagPrefix="web" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<title></title>
-	<script type="text/javascript" src="/Scripts/jquery-1.6.4.js"></script>
-	<script type="text/javascript" src="/Scripts/jquery.signalR-2.0.3.js"></script>
+	<script type="text/javascript" src="/Scripts/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="/Scripts/jquery.signalR-2.1.2.js"></script>
 	<script type="text/javascript">
 
 		function startStreaming()
@@ -36,7 +36,7 @@
 <body>
 	<form runat="server">
 	<div>
-		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" Interval="100" ScalingMode="TargetSize" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
+		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" Interval="200" ScalingMode="TargetSize" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
 		<canvas id="received" width="300" height="300" style="border: solid 1px black"></canvas>
 		<br/>
 		<input type="button" value="Start Streaming" onclick="startStreaming()"/>
