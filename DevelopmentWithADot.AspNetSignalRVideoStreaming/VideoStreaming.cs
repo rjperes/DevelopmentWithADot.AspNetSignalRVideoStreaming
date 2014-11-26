@@ -22,7 +22,15 @@ namespace DevelopmentWithADot.AspNetSignalRVideoStreaming
 			this.Source = false;
 			this.StreamingMode = VideoStreamingMode.Event;
 			this.TargetClientID = String.Empty;
-			
+			this.Resolution = VideoResolution.Default;
+			this.HubUrl = Url;
+		}
+
+		[DefaultValue(Url)]
+		public String HubUrl
+		{
+			get;
+			set;
 		}
 
 		[DefaultValue(false)]
@@ -67,13 +75,37 @@ namespace DevelopmentWithADot.AspNetSignalRVideoStreaming
 			set;
 		}
 
+		[DefaultValue(VideoResolution.Default)]
+		public VideoResolution Resolution
+		{
+			get;
+			set;
+		}
+
 		public static void Configuration(IAppBuilder app)
 		{
 			app.MapSignalR(Url, new HubConfiguration());
 		}
-		
+
+		protected String GetResolutionContraint()
+		{
+			switch (this.Resolution)
+			{
+				case VideoResolution.High:
+					return ("video: { mandatory: { minWidth: 1024, minHeight: 768 } }");
+
+				case VideoResolution.Low:
+					return ("video: { mandatory: { minWidth: 640, minHeight: 480 } }");
+
+				case VideoResolution.Medium:
+					return ("video: { mandatory: { minWidth: 800, minHeight: 600 } }");
+			}
+
+			return ("video: true");
+		}
+
 		protected override void OnLoad(EventArgs e)
-		{			
+		{
 			var sm = ScriptManager.GetCurrent(this.Page);
 			var streamingAction = String.Empty;
 			var size = (this.ScalingMode == VideoScalingMode.OriginalSize) ? ", imageWidth, imageHeight" : (this.ScalingMode == VideoScalingMode.TargetSize) ? ", canvas.width, canvas.height" : (this.ScalingMode == VideoScalingMode.ControlSize) ? String.Format(", {0}, {1}", this.Width.Value, this.Height.Value) : String.Empty;
@@ -101,18 +133,18 @@ namespace DevelopmentWithADot.AspNetSignalRVideoStreaming
 					break;
 			}
 
-			var initScript = String.Format("\ndocument.getElementById('{0}').connection = $.hubConnection('{1}', {{ useDefaultPath: false }}); document.getElementById('{0}').proxy = document.getElementById('{0}').connection.createHubProxy('videoStreamingHub');\n", this.ClientID, Url);
-			var startStreamScript = String.Format("\ndocument.getElementById('{0}').startStream = function(){{\n var video = document.getElementById('{0}'); video.proxy.on('send', function(imageUrl, imageWidth, imageHeight) {{\n {2} \n}}); video.connection.start().done(function() {{\n if ((true == {3}) && (video.paused == true) && (video.src == '')) {{\n navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia); navigator.getUserMedia({{ video: true, audio: false }}, function (stream) {{\n video.src = window.URL.createObjectURL(stream); \n}}, function (error) {{\n debugger; \n}}); \n}}; if (video.intervalId) {{\n window.cancelAnimationFrame(video.intervalId); \n}}; var fn = function(time) {{\nif (time >= {1} && video.intervalId != 0) {{ var canvas = document.createElement('canvas'); var context = canvas.getContext('2d'); context.drawImage(video, 0, 0, canvas.width, canvas.height); var picture = canvas.toDataURL(); video.proxy.invoke('send', picture, video.videoWidth, video.videoHeight); }}; window.requestAnimationFrame(fn); \n}}; if (true == {3}) {{ video.intervalId = window.requestAnimationFrame(fn); }}; video.play(); \n}}) }}\n", this.ClientID, this.Interval, streamingAction, this.Source.ToString().ToLower());
+			var initScript = String.Format("\ndocument.getElementById('{0}').connection = $.hubConnection('{1}', {{ useDefaultPath: false }}); document.getElementById('{0}').proxy = document.getElementById('{0}').connection.createHubProxy('videoStreamingHub');\n", this.ClientID, this.HubUrl);
+			var startStreamScript = String.Format("\ndocument.getElementById('{0}').startStream = function(){{\n var video = document.getElementById('{0}'); video.proxy.on('send', function(imageUrl, imageWidth, imageHeight) {{\n {2} \n}}); video.connection.start().done(function() {{\n if ((true == {3}) && (video.paused == true) && (video.src == '')) {{\n navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia); navigator.getUserMedia({{ {4}, audio: false }}, function (stream) {{\n video.src = window.URL.createObjectURL(stream); \n}}, function (error) {{\n debugger; \n}}); \n}}; if (video.intervalId) {{\n window.cancelAnimationFrame(video.intervalId); \n}}; var fn = function(time) {{\nif (time >= {1} && video.intervalId != 0) {{ var canvas = document.createElement('canvas'); var context = canvas.getContext('2d'); context.drawImage(video, 0, 0, canvas.width, canvas.height); var picture = canvas.toDataURL(); video.proxy.invoke('send', picture, video.videoWidth, video.videoHeight); }}; window.requestAnimationFrame(fn); \n}}; if (true == {3}) {{ video.intervalId = window.requestAnimationFrame(fn); }}; video.play(); \n}}) }}\n", this.ClientID, this.Interval, streamingAction, this.Source.ToString().ToLower(), this.GetResolutionContraint());
 			var stopStreamScript = String.Format("\ndocument.getElementById('{0}').stopStream = function(){{ var video = document.getElementById('{0}'); if (video.intervalId) {{ window.cancelAnimationFrame(video.intervalId); }}; video.intervalId = 0; video.pause(); video.connection.stop(); }};\n", this.ClientID);
 			var script = String.Concat(initScript, startStreamScript, stopStreamScript);
 
 			if (sm != null)
 			{
-				this.Page.ClientScript.RegisterStartupScript(this.GetType(), String.Concat(Url, this.ClientID), String.Format("Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(function() {{ {0} }});\n", script), true);
+				this.Page.ClientScript.RegisterStartupScript(this.GetType(), String.Concat(this.HubUrl, this.ClientID), String.Format("Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(function() {{ {0} }});\n", script), true);
 			}
 			else
 			{
-				this.Page.ClientScript.RegisterStartupScript(this.GetType(), String.Concat(Url, this.ClientID), script, true);
+				this.Page.ClientScript.RegisterStartupScript(this.GetType(), String.Concat(this.HubUrl, this.ClientID), script, true);
 			}
 
 			if (this.Width != Unit.Empty)

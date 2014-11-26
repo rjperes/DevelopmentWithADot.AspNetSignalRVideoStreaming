@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VideoResolution.cs" />
     <Compile Include="VideoScalingMode.cs" />
     <Compile Include="VideoStreamingHub.cs" />
     <Compile Include="VideoStreaming.cs" />

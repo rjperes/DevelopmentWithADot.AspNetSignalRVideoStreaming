@@ -36,7 +36,7 @@
 <body>
 	<form runat="server">
 	<div>
-		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" Interval="200" ScalingMode="TargetSize" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
+		<web:VideoStreaming runat="server" ID="video" ClientIDMode="Static" Width="300px" Height="300px" Resolution="Default" Interval="500" ScalingMode="TargetSize" StreamingMode="Target" TargetClientID="received" OnStreamed="onStreamed" Style="border: solid 1px black" />
 		<canvas id="received" width="300" height="300" style="border: solid 1px black"></canvas>
 		<br/>
 		<input type="button" value="Start Streaming" onclick="startStreaming()"/>
